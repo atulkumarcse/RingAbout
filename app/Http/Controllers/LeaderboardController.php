@@ -1,0 +1,130 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Leaderboard;
+use Illuminate\Http\Request;
+use Validator;
+use Session;
+
+
+class LeaderboardController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+        $leaderboards = Leaderboard::where('status',"!=",0)->latest()->paginate(5);
+        
+    
+
+        return view('leaderboards.index',compact('leaderboards'))
+
+            ->with('i', (request()->input('page', 1) - 1) * 5);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('leaderboards.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'name' => 'required',
+            'money' => 'required'
+        ]);
+         if ($validator->fails()) {
+
+        // get the error messages from the validator
+        $messages = $validator->messages();
+        // redirect our user back to the form with the errors from the validator
+        return redirect()->route('leaderboards.create')
+            ->withErrors($validator);
+
+    }
+         $leaderboard = new Leaderboard();
+         
+         $leaderboard->name = $request->name;
+         $leaderboard->money = $request->money;
+         $leaderboard->save();
+        //Product::create($request->all());
+
+     
+
+        return redirect()->route('leaderboards.index')
+
+                        ->with('success','Leaderboard created successfully.');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Leaderboard  $leaderboard
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Leaderboard $leaderboard)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Leaderboard  $leaderboard
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Leaderboard $leaderboard)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Leaderboard  $leaderboard
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Leaderboard $leaderboard)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Leaderboard  $leaderboard
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Leaderboard $leaderboard)
+    {
+        //
+    }
+
+    public function status(Request $request, $id ,  $status)
+    {  
+
+      $val = Leaderboard::where('id', $id)->update(['status' => $status]);
+      
+       return redirect()->route('leaderboards.index')
+
+                        ->with('success','Leaderboard Deleted.');
+
+    } 
+}

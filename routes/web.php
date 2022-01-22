@@ -40,6 +40,17 @@ Route::get('challenges.delete/{id}/{status}', "ChallengeController@status");
 
 Route::get('challenges.edit/{id}', "ChallengeController@edit");
 
+
+
+
+Route::get('leaderboards.index','LeaderboardController@index')->name('leaderboards.index');
+Route::get('leaderboards.create','LeaderboardController@create')->name('leaderboards.create');
+Route::post('leaderboards.store','LeaderboardController@store')->name('leaderboards.store');
+Route::get('leaderboards.status/{id}/{status}', "LeaderboardController@status");
+
+
+
+
 Route::get('reset_password/{token}', ['as' => 'password.reset', function($token)
 {
     // implement your reset password route here!
