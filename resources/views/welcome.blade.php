@@ -16,8 +16,7 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>        
 
-    <title>Books API</title>
-
+    <title>Login Admin</title>
   </head>
   <body>
 
@@ -32,97 +31,52 @@
               </a>
             </h4>
           </div>
-          <div id="api-users" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading-users">
-            <div class="panel-body">
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th class="col-sm-1">Method</th>
-                    <th class="col-sm-5">URI</th>
-                    <td class="col-sm-6">Description</td>
-                  </tr>
-                </thead>
+          @if ($errors->any())
+              <div class="alert alert-danger">
+                  <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                  <ul>
+                      @foreach ($errors->all() as $error)
+                          <li>{{ $error }}</li>
+                      @endforeach
+                  </ul>
+              </div>
+          @endif
 
-                <tbody>
-                  <tr>
-                    <td>POST</td>
-                    <td>/api/auth/signup</td>
-                    <td>Create a new user account</td>
-                  </tr>
-                  <tr>
-                    <td>POST</td>
-                    <td>/api/auth/login</td>
-                    <td>Authenticate user</td>
-                  </tr>
-                  <tr>
-                    <td>POST</td>
-                    <td>/api/auth/recovery</td>
-                    <td>Forgot password</td>
-                  </tr>
-                  <tr>
-                    <td>POST</td>
-                    <td>/api/auth/reset</td>
-                    <td>Set new password</td>
-                  </tr>
-                </tbody>
-              </table>        
-            </div>
-          </div>
-        </div>
-        <div class="panel panel-default">
-          <div class="panel-heading" role="tab" id="heading-books">
-            <h4 class="panel-title">
-              <a role="button" data-toggle="collapse" data-parent="#api" href="#api-books" aria-expanded="true" aria-controls="api-books">
-                Books
-              </a>
-            </h4>
-          </div>
-          <div id="api-books" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading-books">
-            <div class="panel-body">
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th class="col-sm-1">Method</th>
-                    <th class="col-sm-5">URI</th>
-                    <td class="col-sm-6">Description</td>
-                  </tr>
-                </thead>
+           @if ($message = Session::get('success'))
+                <div class="alert alert-success">
+                    <p>{{ $message }}</p>
+                </div>
+            @endif
 
-                <tbody>
+          <div class="panel-body" role="tab" id="heading-users">
+            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12"></div>
+            <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+             <form method="post" name="login" action="{{url('login')}}">
+              <input type="hidden"  name="csrf-token" content="{{ csrf_token() }}" value="{{ csrf_token() }}">
+              <input type="hidden"  name="_token" content="{{ csrf_token() }}" value="{{ csrf_token() }}">
 
-                  <tr>
-                    <td>POST</td>
-                    <td>/api/books</td>
-                    <td>Add a new book</td>
-                  </tr>
-
-                  <tr>
-                    <td>GET</td>
-                    <td>/api/books</td>
-                    <td>Get all books</td>
-                  </tr>
-
-                  <tr>
-                    <td>GET</td>
-                    <td>/api/books/:id</td>
-                    <td>Get a book by id</td>
-                  </tr>
-
-                  <tr>
-                    <td>PUT</td>
-                    <td>/api/books/:id</td>
-                    <td>Update a book</td>
-                  </tr>
-
-                  <tr>
-                    <td>DELETE</td>
-                    <td>/api/books/:id</td>
-                    <td>Delete a book</td>
-                  </tr>
-
-                </tbody>
-              </table>        
-            </div>
+              <div class="row">
+                <div class="col-lg-6 col-sm-12 col-xs-12 col-md-6">UserName/Email</div>
+                <div class="col-lg-6 col-sm-12 col-xs-12 col-md-6">
+                  <input type="text" name="email" class="form-control">
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-lg-6 col-sm-12 col-xs-12 col-md-6">Password</div>
+                <div class="col-lg-6 col-sm-12 col-xs-12 col-md-6">
+                  <input type="password" name="password" class="form-control">
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-lg-6 col-sm-12 col-xs-12 col-md-6"></div>
+                <div class="col-lg-6 col-sm-12 col-xs-12 col-md-6">
+                  <input type="submit" name="Submit" class="btn btn-primary" value="Submit">
+                </div>
+              </div>
+             </form>
+           </div>
           </div>
         </div>
       </div>
