@@ -11,6 +11,35 @@
 |
 */
 
+
+Route::get('products', "ProductController@index");
+Route::get('status/{id}/{status}', "ProductController@status");
+Route::get('index','ProductController@index')->name('products.index');
+Route::post('store','ProductController@store')->name('products.store');
+Route::get('create','ProductController@create')->name('products.create');
+
+Route::post('destroy/{id}','ProductController@destroy')->name('products.destroy');
+
+
+Route::get('show/{id}','ProductController@show')->name('products.show');
+
+Route::get('edit/{id}','ProductController@edit')->name('products.edit');
+
+
+
+
+Route::get('challenges.index','ChallengeController@index')->name('challenges.index');
+
+Route::get('challenges.create','ChallengeController@create')->name('challenges.create');
+
+Route::post('challenges.store','ChallengeController@store')->name('challenges.store');
+
+Route::post('challenges.update/{id}','ChallengeController@update')->name('challenges.update');
+
+Route::get('challenges.delete/{id}/{status}', "ChallengeController@status");
+
+Route::get('challenges.edit/{id}', "ChallengeController@edit");
+
 Route::get('reset_password/{token}', ['as' => 'password.reset', function($token)
 {
     // implement your reset password route here!

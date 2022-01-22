@@ -11,7 +11,9 @@ return [
         'validation_rules' => [
             'name' => 'required',
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required',
+            'zip_code' => 'required',
+            'user_name' => 'required',
         ]
     ],
     'login' => [

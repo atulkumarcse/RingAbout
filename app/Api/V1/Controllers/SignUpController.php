@@ -7,15 +7,32 @@ use App\User;
 use Tymon\JWTAuth\JWTAuth;
 use App\Http\Controllers\Controller;
 use App\Api\V1\Requests\SignUpRequest;
-use Symfony\Component\HttpKernel\Exception\HttpException;
+//use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class SignUpController extends Controller
 {
     public function signUp(SignUpRequest $request, JWTAuth $JWTAuth)
     {
         $user = new User($request->all());
-        if(!$user->save()) {
-            throw new HttpException(500);
+        try
+            {
+            $usersa = $user->save();
+            }
+            catch(Exception $e)
+            {
+               return response()->json([
+                'status' => 'false',
+                'msg'=>"Integrity constraint violation"
+            ], 500);
+            }
+        
+        if(!empty($usersa->error)) {
+            //throw new HttpException(500);
+             return response()->json([
+                'status' => 'false',
+                'msg'=>"Integrity constraint violation"
+            ], 500);
+
         }
 
         if(!Config::get('boilerplate.sign_up.release_token')) {
