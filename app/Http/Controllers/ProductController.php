@@ -12,8 +12,7 @@ class ProductController extends Controller
     public function index()
 
     {
-        //Session::set('uid', 1);
-        Session()->put('uid', 1);
+        // Session()->put('uid', 1);
         $products = Product::latest()->paginate(5);
         
     

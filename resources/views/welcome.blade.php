@@ -51,7 +51,7 @@
           <div class="panel-body" role="tab" id="heading-users">
             <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12"></div>
             <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-             <form method="post" name="login" action="{{url('login')}}">
+             <form method="POST" name="login" action="{{url('login')}}">
               <input type="hidden"  name="csrf-token" content="{{ csrf_token() }}" value="{{ csrf_token() }}">
               <input type="hidden"  name="_token" content="{{ csrf_token() }}" value="{{ csrf_token() }}">
 

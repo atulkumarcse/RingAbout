@@ -6,10 +6,12 @@ use Illuminate\Http\Request;
 use Validator;
 use Session;
 use App\User;
+use Hash;
+use Auth;
 
-class LoginContoller extends Controller
+class LoginController extends Controller
 {
-    public function login()
+    public function login(Request $request)
     {
         $validator = Validator::make($request->all(),[
             'email' => 'required',
@@ -19,16 +21,17 @@ class LoginContoller extends Controller
                 // get the error messages from the validator
                 $messages = $validator->messages();
                 // redirect our user back to the form with the errors from the validator
-                return redirect()->route('leaderboards.create')
+                return redirect('/')
                     ->withErrors($validator);
             }
-
-        $user = User::where("password",Hash::make($request->password))->andwhere("email",$request->email)->get();
-        if($user->count > 0 ){
-            return view('leaderboards.index',compact('leaderboards'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        $credentials = $request->only(['email', 'password']);
+        $authcheck = Auth::attempt($credentials);
+        if ( Auth::check() ){
+             Session()->put('uid', Auth::id());
+            return redirect()->route('products.index')
+                        ->with('success','Login Successfully');
         } else {
-           return redirect()->route('/')
+           return redirect('/')
             ->withErrors("Please Register yourself");
         }    
 

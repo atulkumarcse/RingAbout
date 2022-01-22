@@ -18,7 +18,7 @@ class ChallengeController extends Controller
      */
     public function index()
     {
-         Session()->put('uid', 1);
+        
         $challenges = Challenge::where('status',"!=",0)->latest()->paginate(5);
         
     
