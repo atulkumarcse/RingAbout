@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 use Validator;
 use Session;
 
+use Tymon\JWTAuth\JWTAuth;
+
+use Dingo\Api\Routing\Helpers;
+
+use \Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
+use Intervention\Image\Facades\Image as Image;
 
 class LeaderboardController extends Controller
 {
@@ -15,6 +22,18 @@ class LeaderboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function list(JWTAuth $JWTAuth)
+    {
+        //
+         $currentUser = $JWTAuth->parseToken()->authenticate();
+         $leaderboards = Leaderboard::where('status',"!=",0)->latest()->paginate(5);
+         return response()->json([
+                'status' => true,
+                'msg'=>"leaderboard list",
+                'data'=>$leaderboards
+            ], 200);
+    }
+
     public function index()
     {
         //

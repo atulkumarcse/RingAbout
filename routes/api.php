@@ -14,6 +14,7 @@ $api->version('v1', function (Router $api) {
 
     $api->post('recovery', 'App\\Api\\V1\\Controllers\\ForgotPasswordController@sendResetEmail');
     $api->post('reset', 'App\\Api\\V1\\Controllers\\ResetPasswordController@resetPassword');
+   
   });
 
   $api->group(['middleware' => 'jwt.auth'], function(Router $api) {
@@ -23,8 +24,10 @@ $api->version('v1', function (Router $api) {
       ]);
     });
 
-    $api->resource('books', 'App\Api\V1\Controllers\BookController');
+    $api->get('Advertiselist', 'App\Api\V1\Controllers\AdvertiseController@index');
+    $api->get('Moneylist', 'App\\Http\\Controllers\\LeaderboardController@list');
 
+     $api->post('AdvertiseStore', 'App\\Api\\V1\\Controllers\\AdvertiseController@store');
   });
 
   $api->get('refresh', function(Request $Request) {
