@@ -25,20 +25,22 @@ $api->version('v1', function (Router $api) {
     });
 
     $api->get('Advertiselist', 'App\Api\V1\Controllers\AdvertiseController@index');
+
     $api->get('Moneylist', 'App\\Http\\Controllers\\LeaderboardController@list');
     
     $api->get('leaderboarddata', 'App\\Http\\Controllers\\LeaderboardController@leaderboarddata');
 
-
     $api->get('challengeslist', 'App\\Http\\Controllers\\ChallengeController@list');
    
-       $api->get('userProfile/{userid}', 'App\\Api\\V1\\Controllers\\SignUpController@userProfile');
+    $api->get('userProfile/{userid}', 'App\\Api\\V1\\Controllers\\SignUpController@userProfile');
 
     $api->post('AdvertiseStore', 'App\\Api\\V1\\Controllers\\AdvertiseController@store');
 
     $api->post('updateProfile', 'App\\Api\\V1\\Controllers\\SignUpController@updateProfile');
 
     $api->post('Awards', 'App\\Http\\Controllers\\AwardController@store');
+
+    $api->post('userstatus/{key}/{status}', 'App\\Api\\V1\\Controllers\\SignUpController@userstatus');
 
 
   });

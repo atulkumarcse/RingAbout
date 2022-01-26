@@ -63,6 +63,28 @@ class SignUpController extends Controller
             ], 200);
     }
 
+
+    public function userstatus(Request $request, JWTAuth $JWTAuth , $key, $status)
+    {
+           $currentUser = $JWTAuth->parseToken()->authenticate();
+         
+             try { 
+             $challenges = User::find($currentUser->id);
+             $challenges->$key = $status ;  
+             $challenges->save();
+             } catch(Exception $e) {
+                   return response()->json([
+                    'status' => 'false',
+                    'msg'=>"Integrity constraint violation"
+                ], 500);
+             }
+             return response()->json([
+                    'status' => true,
+                    'msg'=>"challenge list",
+                    'data'=>$challenges
+                ], 200);
+    }
+
     public function updateProfile(SignUpRequest $request, JWTAuth $JWTAuth)
     {
         $othersvalue = "";
