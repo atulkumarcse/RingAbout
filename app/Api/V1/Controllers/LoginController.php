@@ -9,6 +9,7 @@ use App\Api\V1\Requests\LoginRequest;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -37,4 +38,24 @@ class LoginController extends Controller
                 'user' => $JWTAuth->toUser($token)
             ]);
     }
+
+    public function logout(Request $request, JWTAuth $JWTAuth)
+    {
+       $token = $request->header( 'Authorization' );
+
+        $token =  $JWTAuth->parseToken()->invalidate();
+       if($token)
+       {
+          return response()->json([
+               'status' => 'ok',
+               'message' => 'User logged out successfully!'
+          ], 200);
+        } 
+        else 
+        {
+           return response()->json([
+               'message' => 'Failed to logout user. Try again.'
+            ], 500);
+        }
+   }
 }

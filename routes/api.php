@@ -41,6 +41,8 @@ $api->version('v1', function (Router $api) {
     $api->post('Awards', 'App\\Http\\Controllers\\AwardController@store');
 
     $api->post('userstatus/{key}/{status}', 'App\\Api\\V1\\Controllers\\SignUpController@userstatus');
+    
+    $api->post('logout', 'App\\Api\\V1\\Controllers\\LoginController@logout');
 
 
   });
