@@ -8,6 +8,12 @@ use Validator;
 use Session;
 use Intervention\Image\Facades\Image as Image;
 
+use Tymon\JWTAuth\JWTAuth;
+
+use Dingo\Api\Routing\Helpers;
+
+use \Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 
 class ChallengeController extends Controller
 {
@@ -26,6 +32,18 @@ class ChallengeController extends Controller
         return view('challenges.index',compact('challenges'))
 
             ->with('i', (request()->input('page', 1) - 1) * 5);
+    }
+
+    public function list(JWTAuth $JWTAuth)
+    {
+        //
+         $currentUser = $JWTAuth->parseToken()->authenticate();
+         $challenges = Challenge::where('status',"!=",0)->latest()->paginate(5);
+         return response()->json([
+                'status' => true,
+                'msg'=>"challenge list",
+                'data'=>$challenges
+            ], 200);
     }
 
     /**

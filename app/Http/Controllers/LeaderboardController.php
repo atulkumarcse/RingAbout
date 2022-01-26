@@ -26,7 +26,7 @@ class LeaderboardController extends Controller
     {
         //
          $currentUser = $JWTAuth->parseToken()->authenticate();
-         $leaderboards = Leaderboard::where('status',"!=",0)->latest()->paginate(5);
+         $leaderboards = Leaderboard::where('status',"!=",0)->latest()->paginate(10000);
          return response()->json([
                 'status' => true,
                 'msg'=>"leaderboard list",
@@ -37,13 +37,24 @@ class LeaderboardController extends Controller
     public function index()
     {
         //
-        $leaderboards = Leaderboard::where('status',"!=",0)->latest()->paginate(5);
-        
+        $leaderboards = Leaderboard::where('status',"!=",0)->orderBy('order', 'ASC')->paginate(5);
     
-
         return view('leaderboards.index',compact('leaderboards'))
 
             ->with('i', (request()->input('page', 1) - 1) * 5);
+    }
+
+
+    public function leaderboarddata()
+    {
+        //
+        $leaderboards = Leaderboard::where('status',"!=",0)->orderBy('order', 'ASC')->paginate(10000);
+    
+        return response()->json([
+                'status' => true,
+                'msg'=>"leaderboard list",
+                'data'=>$leaderboards
+            ], 200);
     }
 
     /**
@@ -145,5 +156,19 @@ class LeaderboardController extends Controller
 
                         ->with('success','Leaderboard Deleted.');
 
+    }
+    public function updateOrder(Request $request)
+    {
+        $leaderboards = Leaderboard::all();
+
+        foreach ($leaderboards as $post) {
+            foreach ($request->order as $order) {
+                if ($order['id'] == $post->id) {
+                    $post->update(['order' => $order['position']]);
+                }
+            }
+        }
+        
+        return response('Update Successfully.', 200);
     } 
 }

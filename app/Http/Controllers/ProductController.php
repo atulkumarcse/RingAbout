@@ -12,11 +12,22 @@ class ProductController extends Controller
     public function index()
 
     {
-        // Session()->put('uid', 1);
-        $products = Product::latest()->paginate(5);
+        $uid = Session()->get('uid');
+        $products = Product::where("id","!=",$uid)->latest()->paginate(5);
         
-    
+        return view('products.index',compact('products'))
 
+            ->with('i', (request()->input('page', 1) - 1) * 5);
+
+    }
+
+     public function user()
+
+    {
+        
+        $uid = Session()->get('uid');
+        $products = Product::where("id",$uid)->latest()->paginate(5);
+        
         return view('products.index',compact('products'))
 
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -70,23 +81,30 @@ class ProductController extends Controller
 
         // ]); 'image' => 'mimes:jpeg,bmp,png',
 
-               $validator = Validator::make($request->all(),[
-            'name' => 'required',
-            'detail' => 'required'
-        ]);
-         if ($validator->fails()) {
+              
 
+         if (!$request->hasFile('file') && !$request->detail)  {
+         
         // get the error messages from the validator
-        $messages = $validator->messages();
+        $messages = "Please Enter Details or select File";
 
         // redirect our user back to the form with the errors from the validator
         return redirect()->route('products.create')
-            ->withErrors($validator);
+            ->withErrors($messages);
 
     }
          $product = new Product();
         $product->name = $request->name;
          $product->detail = $request->detail;
+          if ($request->hasFile('file')) {
+        $destinationPath = public_path('images');
+        $images = $request->file->getClientOriginalName();
+        $fileName = time().'_'.$images; // Add current time before image name
+        $imageResize     = Image::make($request->file->getRealPath())
+                   ->resize(500,500,function($c){$c->aspectRatio(); $c->upsize();})->save($destinationPath.'/'.$fileName);  
+       $filepath        = "public/images/".$fileName;
+       $product->url = $filepath;
+    }
          $product->user_id = Session()->get('uid');
          $product->save();
         //Product::create($request->all());

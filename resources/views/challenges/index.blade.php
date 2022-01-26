@@ -1,12 +1,13 @@
-@extends('products.layout')
+@extends('layout')
  
 @section('content')
+<div class=" a1" >
     <div class="row">
         <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
-                <h2>Challenge Details</h2>
+            <div class="pull-left ">
+                 <h1 class="text-center text-white pt-4">Challenges Dashboard</h1>
             </div>
-            <div class="pull-right">
+            <div class="pull-right mt-4 mb-5">
                 <a class="btn btn-success" href="{{ route('challenges.create') }}"> Create New Challenge</a>
             </div>
         </div>
@@ -49,5 +50,5 @@
     </table>
   
     {!! $challenges->links() !!}
-      
+ </div>     
 @endsection

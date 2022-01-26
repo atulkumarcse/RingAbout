@@ -1,13 +1,15 @@
-@extends('products.layout')
-   
+@extends('layout')
+ <div class="row">
+<div class="col-lg-12 margin-tb">
+ <br>
+ <a class="btn backbtn px-4" style="float:right" href="{{ route('leaderboards.index') }}"><i class="fas fa-backspace"></i> Back</a>
+</div>
+</div>   
 @section('content')
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Edit Product</h2>
-            </div>
-            <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('products.index') }}"> Back</a>
+                <h2>Add New Entry</h2>
             </div>
         </div>
     </div>

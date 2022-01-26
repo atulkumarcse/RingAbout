@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Api\V1\Requests\LoginRequest;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Carbon\Carbon;
 
 class LoginController extends Controller
 {
@@ -16,7 +17,10 @@ class LoginController extends Controller
         $credentials = $request->only(['email', 'password']);
 
         try {
-            $token = $JWTAuth->attempt($credentials);
+            $myTTL = 720; //minutes
+
+            //JWTAuth::factory()->setTTL($myTTL);
+            $token = $JWTAuth->attempt($credentials,['exp' => Carbon::now()->addDays(1)->timestamp]);
 
             if(!$token) {
                 throw new AccessDeniedHttpException();

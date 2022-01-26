@@ -11,7 +11,7 @@ $api->version('v1', function (Router $api) {
   $api->group(['prefix' => 'auth'], function(Router $api) {
     $api->post('signup', 'App\\Api\\V1\\Controllers\\SignUpController@signUp');
     $api->post('login', 'App\\Api\\V1\\Controllers\\LoginController@login');
-
+    $api->get('userProfile/{userid}', 'App\\Api\\V1\\Controllers\\SignUpController@userProfile');
     $api->post('recovery', 'App\\Api\\V1\\Controllers\\ForgotPasswordController@sendResetEmail');
     $api->post('reset', 'App\\Api\\V1\\Controllers\\ResetPasswordController@resetPassword');
    
@@ -26,8 +26,21 @@ $api->version('v1', function (Router $api) {
 
     $api->get('Advertiselist', 'App\Api\V1\Controllers\AdvertiseController@index');
     $api->get('Moneylist', 'App\\Http\\Controllers\\LeaderboardController@list');
+    
+    $api->get('leaderboarddata', 'App\\Http\\Controllers\\LeaderboardController@leaderboarddata');
 
-     $api->post('AdvertiseStore', 'App\\Api\\V1\\Controllers\\AdvertiseController@store');
+
+    $api->get('challengeslist', 'App\\Http\\Controllers\\ChallengeController@list');
+   
+       $api->get('userProfile/{userid}', 'App\\Api\\V1\\Controllers\\SignUpController@userProfile');
+
+    $api->post('AdvertiseStore', 'App\\Api\\V1\\Controllers\\AdvertiseController@store');
+
+    $api->post('updateProfile', 'App\\Api\\V1\\Controllers\\SignUpController@updateProfile');
+
+    $api->post('Awards', 'App\\Http\\Controllers\\AwardController@store');
+
+
   });
 
   $api->get('refresh', function(Request $Request) {

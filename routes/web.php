@@ -17,6 +17,9 @@ Route::post('login', 'LoginController@login');
 Route::get('products', "ProductController@index");
 Route::get('status/{id}/{status}', "ProductController@status");
 Route::get('index','ProductController@index')->name('products.index');
+
+Route::get('user','ProductController@user')->name('user.post');
+
 Route::post('store','ProductController@store')->name('products.store');
 Route::get('create','ProductController@create')->name('products.create');
 
@@ -27,6 +30,7 @@ Route::get('show/{id}','ProductController@show')->name('products.show');
 
 Route::get('edit/{id}','ProductController@edit')->name('products.edit');
 
+Route::post('post-sortable','LeaderboardController@updateOrder');
 
 
 

@@ -1,13 +1,19 @@
-@extends('products.layout')
+@extends('layout')
 @section('content')
 <div class="row">
+<div class="col-lg-12 margin-tb">
+ <br>
+ <a class="btn backbtn px-4" style="float:right" href="{{ route('products.index') }}"><i class="fas fa-backspace"></i> Back</a>
+</div>
+</div>
+<div class="row">
+
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
-            <h2>Add New Product</h2>
+            <h2 class="text-center text-white mb-5">Add New Advertisement
+</h2>
         </div>
-        <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('products.index') }}"> Back</a>
-        </div>
+        
     </div>
 </div>
    
@@ -31,8 +37,8 @@
      <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Name:</strong>
-                <input type="text" name="name" class="form-control" placeholder="Name">
+               <!--  <strong>Name:</strong> -->
+                <input type="hidden" name="name" value="admin" class="form-control" placeholder="Name">
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -41,8 +47,14 @@
                 <textarea class="form-control" style="height:150px" name="detail" placeholder="Detail"></textarea>
             </div>
         </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <p class="mb-1 text-white">Select File (Image should be of 4:1 (width:height) aspect ratio):</p>
+                <input type="file" name="file" class="form-control" >
+            </div>
+        </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn subbtn">Submit</button>
         </div>
     </div>
    

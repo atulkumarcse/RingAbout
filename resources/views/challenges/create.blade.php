@@ -1,12 +1,14 @@
-@extends('products.layout')
+@extends('layout')
 @section('content')
+<div class="col-lg-12 margin-tb">
+ <br>
+ <a class="btn backbtn px-4" style="float:right" href="{{ route('challenges.index') }}"><i class="fas fa-backspace"></i> Back</a>
+</div>
+</div>
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
             <h2>Add New Challenge</h2>
-        </div>
-        <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('challenges.index') }}"> Back</a>
         </div>
     </div>
 </div>
@@ -31,8 +33,8 @@
      <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Name:</strong>
-                <input type="text" name="name" class="form-control" placeholder="Name">
+                
+                <input type="hidden" name="name" value="Admin" class="form-control" placeholder="Name">
             </div>
         </div>
 
