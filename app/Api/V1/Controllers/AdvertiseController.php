@@ -20,7 +20,7 @@ class AdvertiseController extends Controller {
 
     $currentUser = $JWTAuth->parseToken()->authenticate();
 
-    $product = Product::orderBy('created_at', 'desc')
+    $product = Product::where("status", 2)->orderBy('created_at', 'desc')
                     ->get()
                     ->toArray();
           return response()->json([
