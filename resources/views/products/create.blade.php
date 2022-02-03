@@ -28,7 +28,7 @@
     </div>
 @endif
    
-<form action="{{ route('products.store') }}" method="POST" multipart="true">
+<form action="{{ route('products.store') }}" method="POST" multipart="true" enctype="multipart/form-data">
     
     
   <input type="hidden"  name="csrf-token" content="{{ csrf_token() }}" value="{{ csrf_token() }}">
