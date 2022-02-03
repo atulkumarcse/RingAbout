@@ -16,7 +16,7 @@
                 </div>
 
                 <!-- Admin advertisements max 3 -->
-                <div class=" mt-5" style="width: 80%;">
+                <div class=" mt-5" style="width: 100%;">
                     @if ($message = Session::get('success'))
                     <div class="alert alert-success">
                         <p>{{ $message }}</p>
@@ -29,7 +29,7 @@
                         </div>
                     @endif
                     <div class="pull-right mt-4 mb-5">
-                        <a class="btn" href="{{ route('products.create') }}"> Create New Challenge</a>
+                        <a class="btn" href="{{ route('products.create') }}"> Create New Advertisement</a>
                     </div>
                     
                     <table class="table table-bordered">

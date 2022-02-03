@@ -6,6 +6,8 @@ use App\Product;
 use Illuminate\Http\Request;
 use Validator;
 use Session;
+use Intervention\Image\Facades\Image as Image;
+
 
 class ProductController extends Controller
 {
@@ -76,6 +78,7 @@ class ProductController extends Controller
         return redirect()->route('products.create')
             ->withErrors($messages);
     }
+    dd($request->file->getClientOriginalName());
          $product = new Product();
         $product->name = $request->name;
          $product->detail = $request->detail;
@@ -86,6 +89,7 @@ class ProductController extends Controller
         $imageResize     = Image::make($request->file->getRealPath())
                    ->resize(500,500,function($c){$c->aspectRatio(); $c->upsize();})->save($destinationPath.'/'.$fileName);  
        $filepath        = "public/images/".$fileName;
+
        $product->url = $filepath;
     }
          $product->user_id = Session()->get('uid');
