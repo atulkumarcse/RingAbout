@@ -7,15 +7,16 @@ use Illuminate\Http\Request;
 use Validator;
 use Session;
 use Intervention\Image\Facades\Image as Image;
-
+use Illuminate\Support\Facades\Input;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
 
     {
+        Session()->flashInput($request->input());
         $uid = Session()->get('uid');
-        $products = Product::where("id",$uid)->latest()->paginate(5);
+        $products = Product::where("user_id",$uid)->latest()->paginate(5);
         
         return view('products.index',compact('products'))
 
@@ -23,12 +24,12 @@ class ProductController extends Controller
 
     }
 
-     public function user()
+     public function user(Request $request)
 
     {
-        
+        Session()->flashInput($request->input());
         $uid = Session()->get('uid');
-        $products = Product::where("id","!=",$uid)->latest()->paginate(5);
+        $products = Product::where("user_id","!=",$uid)->latest()->paginate(5);
         return view('products.index',compact('products'))
 
             ->with('i', (request()->input('page', 1) - 1) * 5);

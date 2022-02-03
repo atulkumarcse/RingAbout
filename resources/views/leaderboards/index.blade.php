@@ -44,7 +44,7 @@
             <td>{{ $product->name }}</td>
             <td>{{ $product->money }}</td>
             <td>
-                   <a class="btn btn-info" href="{{ url('leaderboards.status',$product->id) }}/0">Delete</a>
+                   <a class="btn btn-danger" href="{{ url('leaderboards.status',$product->id) }}/0">Delete</a>
                  
                 
             </td>

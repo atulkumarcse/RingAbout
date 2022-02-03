@@ -52,4 +52,7 @@
     </div>
    
 </form>
+<script type="text/javascript">
+    $(".navbar ").css("display","none");
+</script>
 @endsection

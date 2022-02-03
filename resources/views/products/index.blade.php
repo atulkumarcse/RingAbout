@@ -3,15 +3,17 @@
 @section('content')
 
 
+
  <!-- Posts  -->
         <div class="container-fluid a1" id="posts">
             <div class="d-flex flex-column align-items-center">
                 <h1 class="text-center text-white pt-4 mb-5">Posts Dashboard</h1>
                 <div style="width: 40%;" class="d-flex justify-content-center">
-                    <select class="custom-select yourpost">
+
+                    <select class="custom-select yourpost" name="title" >
                         <option selected>Select one from below</option>
-                        <option class="one " value="1">User Posts</option>
-                        <option class="two " value="2">Your Posts</option>
+                        <option class="one " {{ (old("title") == "1" ? "selected":"") }} value="1">User Posts</option>
+                        <option class="two " {{ (old("title") == "2" ? "selected":"") }} value="2">Your Posts</option>
                     </select>
                 </div>
 
@@ -47,7 +49,7 @@
                             <td>{{ $product->name }}</td>
                             <td>{{ $product->detail }}</td>
                             
-                            <td><img src="{{ $product->url }}" /></td>
+                            <td><img width="120px" src="{{ URL::asset($product->url) }}" /></td>
                             <td>
                                  <a class="btn {{ $product->status == '2' ? 'btn-warning' : 'btn-info' }} "  href="{{ url('status',$product->id) }}/2">Accept</a>
                                   <a class="btn {{ $product->status == '3' ? 'btn-warning' : 'btn-info' }} " href="{{ url('status',$product->id) }}/3">Reject</a>
@@ -70,14 +72,14 @@
    
  <script type="text/javascript">
     
-     $('.yourpost').on('click',function(e){
+     $('.yourpost').on('change',function(e){
     var optval = e.target.value;
    
     if(optval==1){
-        window.location.href = "{{ route('user.post') }}"
+        window.location.href = "{{ route('user.post') }}"+"?title="+optval
     }
     else if(optval==2){
-        window.location.href = "{{ url('index') }}"
+        window.location.href = "{{ url('index') }}"+"?title="+optval
     }
     else{
         // $('.adposts').css('display','none');

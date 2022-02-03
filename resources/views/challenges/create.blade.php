@@ -1,9 +1,9 @@
 @extends('layout')
 @section('content')
+
 <div class="col-lg-12 margin-tb">
  <br>
  <a class="btn backbtn px-4" style="float:right" href="{{ route('challenges.index') }}"><i class="fas fa-backspace"></i> Back</a>
-</div>
 </div>
 <div class="row">
     <div class="col-lg-12 margin-tb">
