@@ -11,6 +11,7 @@ $api->version('v1', function (Router $api) {
   $api->group(['prefix' => 'auth'], function(Router $api) {
     $api->post('signup', 'App\\Api\\V1\\Controllers\\SignUpController@signUp');
     $api->post('login', 'App\\Api\\V1\\Controllers\\LoginController@login');
+    $api->get('mailsend', 'App\\Http\\Controllers\\LoginController@mailsend');
     $api->get('userProfile/{userid}', 'App\\Api\\V1\\Controllers\\SignUpController@userProfile');
     $api->post('recovery', 'App\\Api\\V1\\Controllers\\ForgotPasswordController@sendResetEmail');
     $api->post('reset', 'App\\Api\\V1\\Controllers\\ResetPasswordController@resetPassword');

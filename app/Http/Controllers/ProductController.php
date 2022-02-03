@@ -13,7 +13,7 @@ class ProductController extends Controller
 
     {
         $uid = Session()->get('uid');
-        $products = Product::where("id","!=",$uid)->latest()->paginate(5);
+        $products = Product::where("id",$uid)->latest()->paginate(5);
         
         return view('products.index',compact('products'))
 
@@ -26,8 +26,7 @@ class ProductController extends Controller
     {
         
         $uid = Session()->get('uid');
-        $products = Product::where("id",$uid)->latest()->paginate(5);
-        
+        $products = Product::where("id","!=",$uid)->latest()->paginate(5);
         return view('products.index',compact('products'))
 
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -71,27 +70,11 @@ class ProductController extends Controller
     public function store(Request $request)
 
     {
-       
-      
-        // $request->validate([
-
-        //     'name' => 'required', 
-
-        //     'detail' => 'required',
-
-        // ]); 'image' => 'mimes:jpeg,bmp,png',
-
-              
-
-         if (!$request->hasFile('file') && !$request->detail)  {
-         
+         if (empty($request->file)  && empty($request->detail))  {
         // get the error messages from the validator
         $messages = "Please Enter Details or select File";
-
-        // redirect our user back to the form with the errors from the validator
         return redirect()->route('products.create')
             ->withErrors($messages);
-
     }
          $product = new Product();
         $product->name = $request->name;

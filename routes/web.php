@@ -13,7 +13,7 @@
 
 
 Route::post('login', 'LoginController@login');
-
+Route::get('logout', 'LoginController@logout');
 Route::get('products', "ProductController@index");
 Route::get('status/{id}/{status}', "ProductController@status");
 Route::get('index','ProductController@index')->name('products.index');

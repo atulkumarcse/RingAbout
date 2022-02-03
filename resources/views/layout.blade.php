@@ -34,7 +34,7 @@
                 <div class="modal-body">
                   <h4 class="text-center mb-3">Are you sure?</h4>
                   <div class="d-flex justify-content-center">
-                    <button class="btn btn-success mx-2 px-5">Yes</button>
+                    <a href="{{url('logout')}}"  class="btn btn-success mx-2 px-5">Yes</a>
                     <button class="btn btn-danger mx-2 px-5">No</button>
                   </div>
                 </div>
