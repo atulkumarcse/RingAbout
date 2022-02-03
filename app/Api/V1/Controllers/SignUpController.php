@@ -90,6 +90,7 @@ class SignUpController extends Controller
         $othersvalue = "";
         $currentUser = $JWTAuth->parseToken()->authenticate();
         $others = $request->get("others");
+        if($others){
         if(count($others)>0){
            foreach ($others as $key => $value) {
 
@@ -97,6 +98,9 @@ class SignUpController extends Controller
             }   
         }else {
             $othersvalue = "";
+        }
+        } else {
+             $othersvalue = "";
         }
         $user = User::find($currentUser->id);
         try
