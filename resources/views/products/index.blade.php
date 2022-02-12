@@ -1,13 +1,15 @@
 @extends('layout')
  
 @section('content')
-
-
-
+<style type="text/css">
+    .noned {
+        display: none;
+    }
+</style>
  <!-- Posts  -->
         <div class="container-fluid a1" id="posts">
             <div class="d-flex flex-column align-items-center">
-                <h1 class="text-center text-white pt-4 mb-5">Posts Dashboard</h1>
+                <h1 class="text-center pt-4 mb-5">Posts Dashboard</h1>
                 <div style="width: 40%;" class="d-flex justify-content-center">
 
                     <select class="custom-select yourpost" name="title" >
@@ -34,7 +36,7 @@
                         <a class="btn" href="{{ route('products.create') }}"> Create New Advertisement</a>
                     </div>
                     
-                    <table class="table table-bordered">
+                    <table class="table">
                         <tr>
                             <th>No</th>
                             <th>Name</th>
@@ -51,9 +53,10 @@
                             
                             <td><img width="120px" src="{{ URL::asset($product->url) }}" /></td>
                             <td>
-                                 <a class="btn {{ $product->status == '2' ? 'btn-warning' : 'btn-info' }} "  href="{{ url('status',$product->id) }}/2">Accept</a>
-                                  <a class="btn {{ $product->status == '3' ? 'btn-warning' : 'btn-info' }} " href="{{ url('status',$product->id) }}/3">Reject</a>
-                                   <a class="btn {{ $product->status == '0' ? 'btn-warning' : 'btn-info' }} " href="{{ url('status',$product->id) }}/0">Delete</a>
+                                 <a class="btn btn-success {{ url()->current() == url('index') ? 'noned' : '' }} "  href="{{ url('status',$product->id) }}/2">Accept</a>
+                                  <a class="btn btn-danger  " href="{{ url('status',$product->id) }}/0"> {{ url()->current() == url('index') ? 'Delete' : 'Reject' }} </a>
+                                  
+                                 {{--  <a class="btn {{ $product->status == '0' ? 'btn-warning' : 'btn-info' }} " href="{{ url('status',$product->id) }}/0">Delete</a> --}}
                                  
                                 
                             </td>

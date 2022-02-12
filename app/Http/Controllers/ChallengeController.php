@@ -64,34 +64,42 @@ class ChallengeController extends Controller
      */
     public function store(Request $request)
     {
-         $validator = Validator::make($request->all(),[
-            'name' => 'required',
-            'detail' => 'required'
-        ]);
-         if ($validator->fails()) {
+    //     // dd($request->hasFile('file'));
+    //      $validator = Validator::make($request->all(),[
+    //         'name' => 'required',
+    //         'detail' => 'required'
+    //     ]);
+    //      if ($validator->fails()) {
 
+    //     // get the error messages from the validator
+    //     $messages = $validator->messages();
+    //     // redirect our user back to the form with the errors from the validator
+    //     return redirect()->route('challenges.create')
+    //         ->withErrors($validator);
+
+    // }
+         if (empty($request->file)  && empty($request->detail))  {
         // get the error messages from the validator
-        $messages = $validator->messages();
-        // redirect our user back to the form with the errors from the validator
+        $messages = "Please Enter Details or select File";
         return redirect()->route('challenges.create')
-            ->withErrors($validator);
-
+            ->withErrors($messages);
     }
-         $product = new Challenge();
+    
+         $challenge = new Challenge();
          if ($request->hasFile('file')) {
         $destinationPath = public_path('images');
         $images = $request->file->getClientOriginalName();
         $fileName = time().'_'.$images; // Add current time before image name
         $imageResize     = Image::make($request->file->getRealPath())
-                   ->resize(500,500,function($c){$c->aspectRatio(); $c->upsize();})->save($destinationPath.'/'.$fileName);  
+                   ->resize(2080,2080,function($c){$c->aspectRatio(); $c->upsize();})->save($destinationPath.'/'.$fileName);  
        $filepath        = "public/images/".$fileName;
-       $product->url = $filepath;
+       $challenge->url = $filepath;
     }
-         $product->name = $request->name;
-         $product->detail = $request->detail;
+         $challenge->name = $request->name;
+         $challenge->detail = $request->detail;
          //$product->url = $request->detail;
-         $product->user_id = Session()->get('uid');
-         $product->save();
+         $challenge->user_id = Session()->get('uid');
+         $challenge->save();
         //Product::create($request->all());
 
      

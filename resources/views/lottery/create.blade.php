@@ -1,15 +1,18 @@
 @extends('layout')
 @section('content')
 
-<!-- <div class="col-lg-12 margin-tb">
+<div class="row">
+<div class="col-lg-12 margin-tb">
  <br>
- <a class="btn backbtn px-4" style="float:right" href="{{ route('challenges.index') }}"><i class="fas fa-backspace"></i> Back</a>
-</div> -->
+ <a class="btn backbtn px-4" style="float:right" href="{{ route('leaderboards.index') }}"><i class="fas fa-backspace"></i> Back</a>
+</div>
+</div>        
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
-            <h1 class="text-center mt-5">Add New Challenge</h1>
+        <h1 class="text-center text-white mb-5">Add New Entry</h1>
         </div>
+        
     </div>
 </div>
    
@@ -24,7 +27,7 @@
     </div>
 @endif
    
-<form action="{{ route('challenges.store') }}" method="POST"   multipart="true" enctype="multipart/form-data">
+<form action="{{ route('leaderboards.store') }}" method="POST" multipart="true">
     
     
   <input type="hidden"  name="csrf-token" content="{{ csrf_token() }}" value="{{ csrf_token() }}">
@@ -33,28 +36,23 @@
      <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                
-                <input type="hidden" name="name" value="Admin" class="form-control" placeholder="Name">
-            </div>
-        </div>
-
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <!-- <strong>Detail:</strong> -->
-                <textarea class="form-control" style="height:150px" name="detail" placeholder="Detail"></textarea>
+                <strong>Name:</strong>
+                <input type="text" name="name" class="form-control" placeholder="Name">
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong class="text-white selstrong">Select Image:</strong>
-                <input class="form-control"  name="file" type="file">
+                <strong>Money:</strong>
+                <input class="form-control" type="number" name="money" placeholder="Money"/>
             </div>
         </div>
-        
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                <button type="submit" class="btn subbtn">Submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
         </div>
     </div>
    
 </form>
+<script type="text/javascript">
+    $(".navbar ").css("display","none");
+</script>
 @endsection

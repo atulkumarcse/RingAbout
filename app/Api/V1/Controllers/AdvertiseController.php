@@ -30,6 +30,20 @@ class AdvertiseController extends Controller {
             ], 200);          
   }
 
+  public function AdvertiselistTop(JWTAuth $JWTAuth) {
+
+    $currentUser = $JWTAuth->parseToken()->authenticate();
+
+    $product = Product::whereIn("detail", array("Top","Middle","Bottom"))->where("status", 1)->orderBy('created_at', 'desc')
+                    ->get()
+                    ->toArray();
+          return response()->json([
+                'status' => 'true',
+                'msg'=>"products list",
+                'data'=>$product
+            ], 200);          
+  }
+
   public function store(Request $request, JWTAuth $JWTAuth) {
    
     $currenUser = $JWTAuth->parseToken()->authenticate();
@@ -69,6 +83,43 @@ class AdvertiseController extends Controller {
                 'msg'=>"could not create advertise"
             ], 500);
   }
+  
+  public function AdvertiseStorepattern(Request $request, JWTAuth $JWTAuth) {
+   
+    $currenUser = $JWTAuth->parseToken()->authenticate();
+    if((!($request->get('detail')) )){
+      return $this->response->error($request->all() , 422);
+    }
+  //'Please fill the all the details',
+     if(!$request->get('name')){
+        $names = "Any";
+       } else {
+        $names = $request->get('name');
+       }
+    $product = new Product();
+    $product->detail = $request->get('detail');
+    $product->name = $names;
+     if (!empty($request->file)) {
+       $filepath        = $request->file;
+       $product->url = $filepath;
+    } else {
+       $product->url = 'http://imaegodigital.com/RingAbout/assets/SVG/bubbles.svg';
+    }
+   
+    $product->user_id = $currenUser->id ; 
+    
+    if ($product->save()) {
+      return response()->json([
+                'status' => 'true',
+                'msg'=>"Advertise Created Successfully"
+            ], 200);
+    }
+    return response()->json([
+                'status' => 'false',
+                'msg'=>"could not create advertise"
+            ], 500);
+  }
+  
 
   public function show($id, JWTAuth $JWTAuth) {
 

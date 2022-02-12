@@ -65,3 +65,7 @@ Route::get('reset_password/{token}', ['as' => 'password.reset', function($token)
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('lottery', function () {
+    return view('lottery.index');
+});

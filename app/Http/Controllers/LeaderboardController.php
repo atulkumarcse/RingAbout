@@ -26,7 +26,7 @@ class LeaderboardController extends Controller
     {
         //
          $currentUser = $JWTAuth->parseToken()->authenticate();
-         $leaderboards = Leaderboard::where('status',"!=",0)->latest()->paginate(10000);
+         $leaderboards = Leaderboard::where('status',"!=",0)->orderBy('money', 'DESC')->latest()->paginate(10000);
          return response()->json([
                 'status' => true,
                 'msg'=>"leaderboard list",
@@ -37,8 +37,7 @@ class LeaderboardController extends Controller
     public function index()
     {
         //
-        $leaderboards = Leaderboard::where('status',"!=",0)->orderBy('order', 'ASC')->paginate(5);
-    
+        $leaderboards = Leaderboard::where('status',"!=",0)->orderBy('money', 'DESC')->paginate(5);
         return view('leaderboards.index',compact('leaderboards'))
 
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -48,7 +47,7 @@ class LeaderboardController extends Controller
     public function leaderboarddata()
     {
         //
-        $leaderboards = Leaderboard::where('status',"!=",0)->orderBy('order', 'ASC')->paginate(10000);
+        $leaderboards = Leaderboard::where('status',"!=",0)->orderBy('money', 'DESC')->paginate(10000);
     
         return response()->json([
                 'status' => true,

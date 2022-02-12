@@ -56,12 +56,33 @@ class LoginController extends Controller
             ->with('success',"Logout Successfully");
     }
 
-    public function mailsend(){
-      $password =  str_random(6);
-      $details = array('title' => "Login Credentials" ,"name" => ucfirst("firstname") ,"email" =>"atulkumarit05@gmail.com", "username"=> "username" , "password"=>$password);
-       $email = new SendEmailDemo($details);
-       $email->to("atulkumarit05@gmail.com")->from("atul.kumar@steponexp.com")->subject("your password is here");
+    public function mailsend(Request $request){
+       $useremail = $request->email;
+       $password =str_random(6);  
+      $user = User::where("email",$useremail)->get();
+      $userd = User::find($user[0]->id);
+      $userd->password = $password;
+      $userd->save();
+      if(count($user) > 0 ){
+        
+       $details = array('title' => "Login Credentials" ,"name" => ucfirst($user[0]->name) ,"email" =>$useremail, "username"=> $user[0]->username , "password"=>$password);
+        $a =  Mail::send('mail', array("details"=>$details) , function ($message ) use ($useremail) {
+    $message->from('atul.kumar@steponexp.com', 'Password change');
+    $message->to($useremail)->subject('Login Credentials');
 
+});
+      return response()->json([
+                'status' => "ok",
+                'msg'=>"Msg Sent Successfully",
+                'data'=>$user
+            ], 200);
+  }  else {
+     return response()->json([
+                'status' => "fail",
+                'msg'=>"Please Register your self",
+                'data'=>[]
+            ], 200);
 
     }
+  }
 }

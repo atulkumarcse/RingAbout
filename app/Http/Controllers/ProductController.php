@@ -16,7 +16,7 @@ class ProductController extends Controller
     {
         Session()->flashInput($request->input());
         $uid = Session()->get('uid');
-        $products = Product::where("user_id",$uid)->latest()->paginate(5);
+        $products = Product::where("user_id",$uid)->where("status","!=",0)->latest()->paginate(5);
         
         return view('products.index',compact('products'))
 
@@ -29,7 +29,7 @@ class ProductController extends Controller
     {
         Session()->flashInput($request->input());
         $uid = Session()->get('uid');
-        $products = Product::where("user_id","!=",$uid)->latest()->paginate(5);
+        $products = Product::where("user_id","!=",$uid)->where("status",1)->latest()->paginate(5);
         return view('products.index',compact('products'))
 
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -79,7 +79,7 @@ class ProductController extends Controller
         return redirect()->route('products.create')
             ->withErrors($messages);
     }
-    dd($request->file->getClientOriginalName());
+    //dd($request->file->getClientOriginalName());
          $product = new Product();
         $product->name = $request->name;
          $product->detail = $request->detail;
@@ -88,7 +88,7 @@ class ProductController extends Controller
         $images = $request->file->getClientOriginalName();
         $fileName = time().'_'.$images; // Add current time before image name
         $imageResize     = Image::make($request->file->getRealPath())
-                   ->resize(500,500,function($c){$c->aspectRatio(); $c->upsize();})->save($destinationPath.'/'.$fileName);  
+                   ->resize(2080,2080,function($c){$c->aspectRatio(); $c->upsize();})->save($destinationPath.'/'.$fileName);  
        $filepath        = "public/images/".$fileName;
 
        $product->url = $filepath;

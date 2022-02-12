@@ -1,14 +1,14 @@
 
-@extends('leaderboards.layout')
+@extends('layout')
 
 @section('content')
 <div class=" a1 px-5" >
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                 <h1 class="text-center text-white pt-4">Leaderboard Dashboard</h1>
+                 <h1 class="text-center pt-4">Leaderboard Dashboard</h1>
             </div>
-            <div class="pull-right  mt-4 mb-5">
+            <div class="pull-right  mt-5 mb-5">
                 <a class="btn btn-success" href="{{ route('leaderboards.create') }}"> Create New Leaderboard</a>
             </div>
         </div>
@@ -26,21 +26,23 @@
         </div>
     @endif
    
-   <table id="table" class="table table-bordered">
+   <table id="table" class="table">
     <thead>
         <tr>
-            <th>#</th>
-            <th>Order.</th>
+           <!--  <th>#</th> -->
+            <th>Order</th>
             <th>Name</th>
             <th>Money</th>
             <th width="280px">Action</th>
         </tr>
     </thead>
-        <tbody id="tablecontents">
+    <!--  id="tablecontents" -->
+        <tbody>
+           {{$i = 1}} 
         @foreach ($leaderboards as $product)
          <tr class="row1" data-id="{{ $product->id }}">
-            <td class="pl-3"><i class="fa fa-sort"></i></td>
-            <td>{{ $product->order }}</td>
+            <!-- <td class="pl-3"><i class="fa fa-sort"></i></td> -->
+            <td>{{ $i++ }}</td>
             <td>{{ $product->name }}</td>
             <td>{{ $product->money }}</td>
             <td>
@@ -58,22 +60,22 @@
 
       </div>
 
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+     <!--  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script> 
     <script type="text/javascript">
       $(function () {
-        $("#table").DataTable();
+        // $("#table").DataTable();
 
-        $( "#tablecontents" ).sortable({
-          items: "tr",
-          cursor: 'move',
-          opacity: 0.6,
-          update: function() {
-             //console.log("this");
-              sendOrderToServer();
-          }
-        });
+        // $( "#tablecontents" ).sortable({
+        //   items: "tr",
+        //   cursor: 'move',
+        //   opacity: 0.6,
+        //   update: function() {
+        //      //console.log("this");
+        //       sendOrderToServer();
+        //   }
+        // });
 
         function sendOrderToServer() {
           var order = [];
@@ -104,4 +106,10 @@
         }
       });
     </script>
+
+    <style type="text/css">
+        table.dataTable tbody tr td {
+    color: black; !important;
+}
+    </style> -->
 @endsection

@@ -73,6 +73,14 @@
 
 <div class="container">
     @yield('content')
+
+    <!-- Lottery-Popup -->
+        <div class="container-fluid a1 mt-5" id="lottery">
+            <div class="w-100 h-100 d-flex flex-column justify-content-center align-items-center">
+                <h3 class="text-center text-white my-5">Click below button to trigger Lottery-Popup</h3>
+                <a href="" class="btn lotbtn px-5">Lottery</a>
+            </div>
+        </div>
 </div>
    
 </div>

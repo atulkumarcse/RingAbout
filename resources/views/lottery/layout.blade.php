@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RingAbout</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <title>RingAbout</title>
+    
      <!-- CDNs -->
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -17,12 +19,15 @@
 
      <!-- css styling -->
      <link rel="stylesheet" href="/RingAbout/assets/CSS/admin.css">
-
+     
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.css"/>
+    
+    
 </head>
 <body>
     <div class="main-container">
         <!-- Logout Modal -->
-        <div class="modal fade logModal" id="adlogout" tabindex="-1">
+        <div class="modal fade logModal" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header my-1">
@@ -34,7 +39,7 @@
                 <div class="modal-body">
                   <h4 class="text-center mb-3">Are you sure?</h4>
                   <div class="d-flex justify-content-center">
-                    <a href="{{url('logout')}}"  class="btn btn-success mx-2 px-5">Yes</a>
+                    <button class="btn btn-success mx-2 px-5">Yes</button>
                     <button class="btn btn-danger mx-2 px-5">No</button>
                   </div>
                 </div>
@@ -43,7 +48,7 @@
         </div>
         
         <!-- navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #283b79;">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #026852;">
             <a class="navbar-brand text-white" href="#">RingAbout</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <!-- <span class="navbar-toggler-icon"></span> -->
@@ -62,10 +67,10 @@
                         <a class="nav-link" href="{{ route('leaderboards.index') }}" id="adleaderboard">Leaderboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('lottery') }}" id="lotpopup">Lottery-Popup</a>
+                        <a class="nav-link" href="#lottery" id="lotpopup">Lottery-Popup</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link adlogout" href="#" id="adlogout" >Log Out</a>
+                        <a class="nav-link" href="#" id="adlogout">Log Out</a>
                     </li>
                 </ul>
             </div>
@@ -73,20 +78,11 @@
 
 <div class="container">
     @yield('content')
-
-
-   
-        
 </div>
    
 </div>
 
-<script type="text/javascript">
-    $('.adlogout').on('click',function(){
-    $('.logModal').modal();
-});
 
-</script>
     <script src="/RingAbout/assets/JS/admin.js"></script>
 </body>
 </html>

@@ -63,6 +63,15 @@ class SignUpController extends Controller
             ], 200);
     }
 
+    public function userList(Request $request){
+        $UserList = User::select('id','name')->get()->toArray();
+         return response()->json([
+                'status' => true,
+                'msg'=>"user list",
+                'data'=>$UserList
+            ], 200);
+    }
+
 
     public function userstatus(Request $request, JWTAuth $JWTAuth , $key, $status)
     {

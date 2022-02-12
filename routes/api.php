@@ -27,6 +27,8 @@ $api->version('v1', function (Router $api) {
 
     $api->get('Advertiselist', 'App\Api\V1\Controllers\AdvertiseController@index');
 
+    $api->get('AdvertiselistTop', 'App\Api\V1\Controllers\AdvertiseController@AdvertiselistTop');
+
     $api->get('Moneylist', 'App\\Http\\Controllers\\LeaderboardController@list');
     
     $api->get('leaderboarddata', 'App\\Http\\Controllers\\LeaderboardController@leaderboarddata');
@@ -35,7 +37,11 @@ $api->version('v1', function (Router $api) {
    
     $api->get('userProfile/{userid}', 'App\\Api\\V1\\Controllers\\SignUpController@userProfile');
 
+    $api->get('userList', 'App\\Api\\V1\\Controllers\\SignUpController@userList');
+    
     $api->post('AdvertiseStore', 'App\\Api\\V1\\Controllers\\AdvertiseController@store');
+    
+    $api->post('AdvertiseStorepattern', 'App\\Api\\V1\\Controllers\\AdvertiseController@AdvertiseStorepattern');
 
     $api->post('updateProfile', 'App\\Api\\V1\\Controllers\\SignUpController@updateProfile');
 
