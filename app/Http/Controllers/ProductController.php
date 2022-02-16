@@ -87,8 +87,10 @@ class ProductController extends Controller
         $destinationPath = public_path('images');
         $images = $request->file->getClientOriginalName();
         $fileName = time().'_'.$images; // Add current time before image name
-        $imageResize     = Image::make($request->file->getRealPath())
-                   ->resize(2080,2080,function($c){$c->aspectRatio(); $c->upsize();})->save($destinationPath.'/'.$fileName);  
+        //$imageResize     = Image::make($request->file->getRealPath())
+                   //->resize(2080,2080,function($c){$c->aspectRatio(); $c->upsize();})->save($destinationPath.'/'.$fileName);  
+        // $imageResize     = Image::make($request->file->getRealPath())->save($destinationPath.'/'.$fileName); 
+        $request->file->move('public/images',$fileName); 
        $filepath        = "public/images/".$fileName;
 
        $product->url = $filepath;

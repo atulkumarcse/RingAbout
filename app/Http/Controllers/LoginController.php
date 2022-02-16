@@ -40,9 +40,15 @@ class LoginController extends Controller
             }
             
         } else {
+           $user = User::where("email",$request->email)->get()->toArray(); 
+           if(count($users)>0){
+            return redirect('/')
+            ->withErrors("Incorrect Password");
+        } else {
            return redirect('/')
             ->withErrors("Please Register yourself");
-        }    
+        }
+       }    
 
         
     }

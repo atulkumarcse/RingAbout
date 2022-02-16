@@ -4,13 +4,13 @@
     <p style="font-size:15px;line-height:25px;">
      Here are your login details::
      <br>
-     User Name : {{$details['email']}}<br>
+     Email : {{$details['email']}}<br>
      Password  : {{$details['password']}}<br>
     </p>
     
  <br>
   <br>
     Regards<br>
-    Team Steponexp<br>
+    Team RingAbout<br>
     </p>
 </div>

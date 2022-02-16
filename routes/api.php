@@ -45,6 +45,8 @@ $api->version('v1', function (Router $api) {
 
     $api->post('updateProfile', 'App\\Api\\V1\\Controllers\\SignUpController@updateProfile');
 
+    $api->post('changePassword', 'App\\Api\\V1\\Controllers\\SignUpController@changePassword');
+
     $api->post('Awards', 'App\\Http\\Controllers\\AwardController@store');
 
     $api->post('userstatus/{key}/{status}', 'App\\Api\\V1\\Controllers\\SignUpController@userstatus');

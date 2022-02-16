@@ -10,11 +10,30 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\User;
+use Validator;
 
 class LoginController extends Controller
 {
-    public function login(LoginRequest $request, JWTAuth $JWTAuth)
+    public function login(Request $request, JWTAuth $JWTAuth)
     {
+        $validator = Validator::make($request->all(),[
+            'email' => 'required|email',
+            'password' => 'required'
+        ], ["email.email"=>"Incorrect Email"]);
+         if ($validator->fails()) {
+                // get the error messages from the validator
+                $messages = $validator->messages()->first();
+                //$errors = $validator->errors();
+                // redirect our user back to the form with the errors from the validator
+                 return response()
+                            ->json([
+                                'status' => 'fail',
+                                'msg' => $messages
+                                //"errors" => $errors,
+                            ]);
+            }
+
         $credentials = $request->only(['email', 'password']);
 
         try {
@@ -24,7 +43,24 @@ class LoginController extends Controller
             $token = $JWTAuth->attempt($credentials,['exp' => Carbon::now()->addDays(1)->timestamp]);
 
             if(!$token) {
-                throw new AccessDeniedHttpException();
+                $users = User::where("email",$request->email)->get()->toArray(); 
+                   if(count($users)>0){
+                    return response()
+                            ->json([
+                                'status' => 'fail',
+                                'token' => $token,
+                                'msg' => 'Incorrect Password '
+                            ]);
+                } else {
+                   return response()
+                            ->json([
+                                'status' => 'fail',
+                                'token' => $token,
+                                'msg' => 'Please Register yourself '
+                            ]);
+                }
+
+               // throw new AccessDeniedHttpException();
             }
 
         } catch (JWTException $e) {

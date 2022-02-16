@@ -7,8 +7,10 @@ use App\User;
 use Tymon\JWTAuth\JWTAuth;
 use App\Http\Controllers\Controller;
 use App\Api\V1\Requests\SignUpRequest;
-use Request;
+use Illuminate\Http\Request; 
 use Intervention\Image\Facades\Image as Image;
+use Hash;
+use DB;
 
 //use Symfony\Component\HttpKernel\Exception\HttpException;
 
@@ -63,6 +65,29 @@ class SignUpController extends Controller
             ], 200);
     }
 
+    public function changePassword(Request $request, JWTAuth $JWTAuth )
+    {
+       $password = $request->password;
+       $currentUser = $JWTAuth->parseToken()->authenticate();
+       if (Hash::check($password, $currentUser->password)) {
+               $userd = User::find($currentUser->id);
+                  $userd->password = $request->cpassword;
+                  $userd->save();
+                     return response()->json([
+                            'status' => true,
+                            'msg'=>"Password changed Successfully",
+                            'data'=>$userd
+                        ], 200);
+        } else {
+            return response()->json([
+                            'status' => false,
+                            'msg'=>"Please enter correct password",
+                            'data'=>[]
+                        ], 200);
+        }
+      
+    }
+
     public function userList(Request $request){
         $UserList = User::select('id','name')->get()->toArray();
          return response()->json([
@@ -102,8 +127,9 @@ class SignUpController extends Controller
         if($others){
         if(count($others)>0){
            foreach ($others as $key => $value) {
-
-                  $othersvalue .= $value.",";
+                  if(!empty($value)){
+                    $othersvalue .= $value.",";
+                  }  
             }   
         }else {
             $othersvalue = "";

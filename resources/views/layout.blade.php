@@ -35,7 +35,7 @@
                   <h4 class="text-center mb-3">Are you sure?</h4>
                   <div class="d-flex justify-content-center">
                     <a href="{{url('logout')}}"  class="btn btn-success mx-2 px-5">Yes</a>
-                    <button class="btn btn-danger mx-2 px-5">No</button>
+                    <button class="btn btn-danger mx-2 px-5" class="close" data-dismiss="modal" aria-label="Close" >No</button>
                   </div>
                 </div>
               </div>
