@@ -53,10 +53,14 @@
                             
                             <td><img width="120px" src="{{ URL::asset($product->url) }}" /></td>
                             <td>
+                                @if($product->status == 1)
                                  <a class="btn btn-success {{ url()->current() == url('index') ? 'noned' : '' }} "  href="{{ url('status',$product->id) }}/2">Accept</a>
-                                  <a class="btn btn-danger  " href="{{ url('status',$product->id) }}/0"> {{ url()->current() == url('index') ? 'Delete' : 'Reject' }} </a>
-                                  
-                                 {{--  <a class="btn {{ $product->status == '0' ? 'btn-warning' : 'btn-info' }} " href="{{ url('status',$product->id) }}/0">Delete</a> --}}
+                                  <a class="btn btn-danger  " href="{{ url('status',$product->id) }}/3"> {{ url()->current() == url('index') ? 'Delete' : 'Reject' }} </a>
+                                   @else
+                                      <a class="btn btn-danger  " href="{{ url('status',$product->id) }}/0"> Delete </a>
+                                  @endif
+
+                                                                   {{--  <a class="btn {{ $product->status == '0' ? 'btn-warning' : 'btn-info' }} " href="{{ url('status',$product->id) }}/0">Delete</a> --}}
                                  
                                 
                             </td>
@@ -89,6 +93,8 @@
         // $('.useposts').css('display','none');
     }
 });
+
+
  </script>   
       
 @endsection

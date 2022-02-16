@@ -20,7 +20,8 @@ class LoginController extends Controller
         $validator = Validator::make($request->all(),[
             'email' => 'required|email',
             'password' => 'required'
-        ], ["email.email"=>"Incorrect Email"]);
+        ], ['required' => ' :Attribute missing',
+            'email.email' => 'Invalid Email Address',]);
          if ($validator->fails()) {
                 // get the error messages from the validator
                 $messages = $validator->messages()->first();

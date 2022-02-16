@@ -56,7 +56,7 @@
               <input type="hidden"  name="_token" content="{{ csrf_token() }}" value="{{ csrf_token() }}">
 
               <div class="row">
-                <div class="col-lg-6 col-sm-12 col-xs-12 col-md-6">UserName/Email</div>
+                <div class="col-lg-6 col-sm-12 col-xs-12 col-md-6">Email</div>
                 <div class="col-lg-6 col-sm-12 col-xs-12 col-md-6">
                   <input type="text" name="email" class="form-control">
                 </div>

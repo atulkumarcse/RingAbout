@@ -38,7 +38,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                <!--  <strong>Name:</strong> -->
-                <input type="hidden" name="name" value="admin" class="form-control" placeholder="Name">
+                <input type="hidden" name="name" value="Admin" class="form-control" placeholder="Name">
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 mb-3">

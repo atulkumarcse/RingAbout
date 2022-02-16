@@ -29,7 +29,7 @@ class ProductController extends Controller
     {
         Session()->flashInput($request->input());
         $uid = Session()->get('uid');
-        $products = Product::where("user_id","!=",$uid)->where("status",1)->latest()->paginate(5);
+        $products = Product::where("user_id","!=",$uid)->where("status","!=",0)->latest()->paginate(5);
         return view('products.index',compact('products'))
 
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -103,7 +103,7 @@ class ProductController extends Controller
 
         return redirect()->route('products.index')
 
-                        ->with('success','Product created successfully.');
+                        ->with('success','Advertisement created successfully.');
 
     }
 
@@ -131,12 +131,12 @@ class ProductController extends Controller
 
      public function status(Request $request, $id ,  $status)
     {  
-
+      $statusarray = array(2 => "Approved" ,  3 =>"Rejected" , 0 => "Deleted");
       $val = Product::where('id', $id)->update(['status' => $status]);
       
-       return redirect()->route('products.index')
+       return redirect("user")
 
-                        ->with('success','Product Status Changed.');
+                        ->with('success',"Classified ". $statusarray[$status]);
 
     } 
 

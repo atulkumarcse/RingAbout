@@ -98,7 +98,7 @@ class LeaderboardController extends Controller
 
         return redirect()->route('leaderboards.index')
 
-                        ->with('success','Leaderboard created successfully.');
+                        ->with('success','User Added.');
     }
 
     /**
@@ -153,7 +153,7 @@ class LeaderboardController extends Controller
       
        return redirect()->route('leaderboards.index')
 
-                        ->with('success','Leaderboard Deleted.');
+                        ->with('success','User Removed.');
 
     }
     public function updateOrder(Request $request)

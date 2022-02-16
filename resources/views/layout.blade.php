@@ -84,8 +84,10 @@
 <script type="text/javascript">
     $('.adlogout').on('click',function(){
     $('.logModal').modal();
-});
+    
 
+});
+$('.alert').delay(5000).fadeOut('slow');
 </script>
     <script src="/RingAbout/assets/JS/admin.js"></script>
 </body>

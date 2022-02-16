@@ -16,4 +16,12 @@ class SignUpRequest extends FormRequest
     {
         return true;
     }
+
+    public function messages()
+    {
+        return [
+            'required' => ' :Attribute missing',
+            'email.email' => 'Invalid Email Address',
+        ];
+    }
 }

@@ -16,9 +16,10 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            'email' => 'required',
+            'email' => 'required|email',
             'password' => 'required'
-        ]);
+        ], ['required' => ' :Attribute missing',
+            'email.email' => 'Invalid Email Address',]);
          if ($validator->fails()) {
                 // get the error messages from the validator
                 $messages = $validator->messages();
@@ -32,15 +33,15 @@ class LoginController extends Controller
             $user = Auth::user();
             if($user->status==2){
              Session()->put('uid', Auth::id());
-             return redirect()->route('products.index')
-                        ->with('success','Login Successfully');
+             return redirect()->route('products.index');
+                        //->with('success','Login Successfull');
             }else {
                 return redirect('/')
             ->with("success","You are not valid User to Login");
             }
             
         } else {
-           $user = User::where("email",$request->email)->get()->toArray(); 
+           $users = User::where("email",$request->email)->get()->toArray(); 
            if(count($users)>0){
             return redirect('/')
             ->withErrors("Incorrect Password");
