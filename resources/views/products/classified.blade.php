@@ -44,13 +44,13 @@
         <div class="col-xs-12 col-sm-12 col-md-12 mb-3">
             <div class="form-group">
                 <!-- <strong>Detail:</strong> -->
-                <!-- <textarea class="form-control" style="height:150px" name="detail" placeholder="Detail"></textarea> -->
-                <select class="pos-select form-control" name="detail" >
+                <textarea class="form-control" style="height:150px" name="detail" placeholder="Detail"></textarea>
+               <!--  <select class="pos-select form-control" name="detail" >
                         <option selected value="">Select advertisement's position from below</option>
                         <option class="one " value="Top">Top</option>
                         <option class="two " value="Middle">Middle</option>
                         <option class="two " value="Bottom">Bottom</option>
-                </select>
+                </select> -->
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 mb-4" id="imagediv">

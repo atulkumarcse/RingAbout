@@ -10,7 +10,9 @@ use Dingo\Api\Routing\Helpers;
 use App\Http\Controllers\Controller;
 use \Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Validator;
+use Session;
 use Intervention\Image\Facades\Image as Image;
+
 
 class AdvertiseController extends Controller {
 

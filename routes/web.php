@@ -18,8 +18,9 @@ Route::get('products', "ProductController@index");
 Route::get('status/{id}/{status}', "ProductController@status");
 Route::get('index','ProductController@index')->name('products.index');
 
-Route::get('user','ProductController@user')->name('user.post');
+Route::get('user','ProductController@user')->name('products.user');
 
+Route::get('yourclassified','ProductController@yourclassified')->name('products.yourclassified');
 Route::post('store','ProductController@store')->name('products.store');
 Route::get('create','ProductController@create')->name('products.create');
 
@@ -46,6 +47,9 @@ Route::get('challenges.delete/{id}/{status}', "ChallengeController@status");
 
 Route::get('challenges.edit/{id}', "ChallengeController@edit");
 
+Route::post('AdvertiseStore', 'ProductController@authstore');
+    
+Route::post('AdvertiseStorepattern', 'ProductController@authAdvertiseStorepattern');
 
 
 
@@ -65,6 +69,7 @@ Route::get('reset_password/{token}', ['as' => 'password.reset', function($token)
 Route::get('/', function () {
     return view('welcome');
 });
+
 
 Route::get('lottery', function () {
     return view('lottery.index');
